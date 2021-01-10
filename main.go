@@ -15,10 +15,6 @@ const (
 	defaultPacketOverhead = 0
 )
 
-func checkIP() {
-
-}
-
 type KTSpeed struct {
 	controlClient *controlClient
 }
@@ -43,6 +39,9 @@ func main() {
 	}
 	ktSpeed.controlClient.Close()
 	fmt.Printf("Public IP: %s\nReal IP: %s\n", publicIP, realIP)
+
+	ktudp := NewKTUDPMeter(realIP, KTUDPMeterDefaultPort)
+	ktudp.Measure()
 
 	ktdl := NewKTSpeedMeter(realIP, KTSpeedMeterDefaultDownloadPort, KTSpeedMeterDownload)
 	if err := ktdl.Connect(); err != nil {

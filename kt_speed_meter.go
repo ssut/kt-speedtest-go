@@ -200,6 +200,11 @@ func (r *KTSpeedMeterRunner) Prepare() error {
 	if err := r.conn.SetNoDelay(true); err != nil {
 		return err
 	}
+	if r.meter.Type == KTSpeedMeterUpload {
+		// if err := r.conn.SetWriteBuffer(128 * 1024); err != nil {
+		// 	fmt.Println(err)
+		// }
+	}
 
 	ks := NewKTStream(r.reader)
 	recv, err := ks.ReadMessage(r.meter.ConnectionTimeout)
